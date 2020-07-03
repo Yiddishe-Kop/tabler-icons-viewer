@@ -2,21 +2,34 @@
 @tailwind base;
 @tailwind components;
 
-// Vue transitions
-.transition {
-  transition: all 0.3s ease;
+@font-face {
+  font-family: "Cascadia";
+  src: url("/Cascadia.ttf");
 }
 
-.slideUp-enter-active {
-  transition: all 0.3s ease-in;
+// Vue transitions
+
+.transition {
+  transition: all 0.25s ease;
 }
-.slideUp-leave-active {
+.grid-enter-active {
+  transition: all 0.25s ease;
+}
+.grid-leave-active {
   transition: none;
 }
-.slideUp-enter,
-.slideUp-leave-to {
+.grid-enter,
+.grid-leave-to {
   opacity: 0;
-  transform: translateY(10px);
+  transform: scale(0.8);
+}
+
+button,
+a {
+  &:focus,
+  &:active {
+    @apply outline-none shadow-outline;
+  }
 }
 
 /*! purgecss end ignore */

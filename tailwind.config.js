@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: [
     './src/**/*.html',
@@ -8,8 +10,14 @@ module.exports = {
       colors: {
         brand: '#ffad1f',
       },
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        mono: ['Cascadia', ...defaultTheme.fontFamily.mono], // font for code snippets 😎
+      },
     },
   },
-  variants: {},
+  variants: {
+    boxShadow: ['hover', 'focus', 'focus-within']
+  },
   plugins: [],
 }

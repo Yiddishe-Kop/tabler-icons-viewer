@@ -1,33 +1,31 @@
 <template>
   <layout>
-    <div class="flex items-center p-2 bg-gray-800 rounded-lg">
-      <span class="px-3 py-1 text-sm font-bold bg-gray-900 rounded">/</span>
-      <input
-        v-model="search"
-        type="text"
-        placeholder="Search icons..."
-        class="flex-1 px-3 bg-transparent outline-none"
-      />
-      <span class="px-3 py-1 text-sm font-bold bg-gray-900 rounded">/</span>
-    </div>
+    <search-bar v-model="search" />
 
     <section class="mt-12">
-      <transition-group name="grid" class="grid grid-cols-6 gap-4 items-stretch justify-center">
-        <div v-for="icon in filterdIcons" :key="icon" class="bg-gray-800 rounded p-2 text-center">
-          <component :is="icon" class="my-8 text-white inline w-8" />
-          <p class="text-gray-400 text-xs">{{ icon.replace('icon-', '') }}</p>
-        </div>
+      <transition-group
+        name="grid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4 items-stretch justify-center"
+      >
+        <icon v-for="icon in filterdIcons" :key="icon" :icon="icon" class="icon-card" />
       </transition-group>
     </section>
+    <div class="flex justify-center my-10">
+      <button
+        class="border-2 border-gray-700 hover:border-brand py-1 px-4 rounded-full text-gray-400 text-sm transition"
+      >Show More...</button>
+    </div>
   </layout>
 </template>
 
 <script>
-import Layout from "./layouts/Default.vue";
+import Layout from "@/layouts/Default.vue";
+import SearchBar from "@/components/SearchBar";
+import Icon from "@/components/Icon";
 
 export default {
   name: "App",
-  components: { Layout },
+  components: { Layout, SearchBar, Icon },
   data() {
     return {
       search: ""
@@ -37,8 +35,15 @@ export default {
     filterdIcons() {
       return this.$icons
         .filter(i => new RegExp(this.search, "i").test(i))
-        .slice(0, 60);
+        .slice(0, 50); // only show max 50 at once - for fast performance
     }
+  },
+  created() {
+    window.addEventListener("keydown", e => {
+      if (e.keyCode != 191) return;
+      e.preventDefault();
+      document.getElementById("search-bar").focus();
+    });
   }
 };
 </script>

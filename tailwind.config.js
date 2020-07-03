@@ -19,5 +19,7 @@ module.exports = {
   variants: {
     boxShadow: ['hover', 'focus', 'focus-within']
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/ui')
+  ],
 }

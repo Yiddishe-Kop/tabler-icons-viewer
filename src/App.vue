@@ -10,8 +10,10 @@
         <icon v-for="icon in filterdIcons" :key="icon" :icon="icon" class="icon-card" />
       </transition-group>
     </section>
-    <div class="flex justify-center my-10">
+
+    <div class="flex justify-center my-10" :class="{'mb-96': search}">
       <button
+        @click="loadMore"
         class="border-2 border-gray-700 hover:border-brand py-1 px-4 rounded-full text-gray-400 text-sm transition"
       >Show More...</button>
     </div>
@@ -28,14 +30,26 @@ export default {
   components: { Layout, SearchBar, Icon },
   data() {
     return {
-      search: ""
+      search: "",
+      maxResults: 50
     };
   },
   computed: {
     filterdIcons() {
       return this.$icons
         .filter(i => new RegExp(this.search, "i").test(i))
-        .slice(0, 50); // only show max 50 at once - for fast performance
+        .slice(0, this.maxResults); // only show max 50 at once - for fast performance
+    }
+  },
+  watch: {
+    search(newVal) {
+      if (!newVal) return;
+      this.maxResults = 40;
+    }
+  },
+  methods: {
+    loadMore() {
+      this.maxResults += 40;
     }
   },
   created() {

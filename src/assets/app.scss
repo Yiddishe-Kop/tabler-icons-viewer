@@ -24,6 +24,13 @@
   transform: scale(0.8);
 }
 
+a {
+  @apply text-brand;
+  &:hover {
+    @apply no-underline;
+  }
+}
+
 button,
 a {
   &:focus,

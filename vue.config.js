@@ -11,4 +11,12 @@ module.exports = {
       .use('vue-svg-loader')
       .loader('vue-svg-loader');
   },
+
+  pwa: {
+    name: 'Tabler Icons Viewer',
+    themeColor: '#1a202c',
+    iconPaths: {
+      appleTouchIcon: 'img/icons/android-chrome-maskable-512x512.png',
+    }
+  }
 };
